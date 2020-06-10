@@ -1,0 +1,14 @@
+.login-div {
+  margin: 150px auto;
+  width: 400px;
+}
+body {
+  background-color: #f0f0f0;
+}
+.register {
+  width: 100px;
+}
+.login {
+  width: 100px;
+  float: right;
+}
