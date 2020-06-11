@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Select, InputNumber } from 'antd';
+import { Form, Input, Button, Select, InputNumber, message } from 'antd';
 import axios from 'axios';
 import ServicePath from './../config/apiUrl';
 const { Option } = Select;
@@ -18,7 +18,7 @@ const validateMessages = {
     number: '${label} 请输入数字',
   },
 };
-function AddNovel() {
+function AddNovel(props) {
   const [id, setId] = useState(0);
   const [name, setName] = useState('');
   const [author, setAuthor] = useState(0);
@@ -48,12 +48,17 @@ function AddNovel() {
       method: 'post',
       url: ServicePath.AddNovel,
       data: novel,
-      withCredentials: true,
+      withCredentials: false,
     }).then(res => {
-      console.log('请求发送成功');
-      console.log(res);
+      // console.log('请求发送成功');
+      if (res.data.status === 'success') {
+        message.success('插入成功');
+      } else if (res.data.status === 'used') {
+        message.error('id 已被使用');
+      } else {
+        message.error('添加失败');
+      }
     });
-    console.log(novel);
   };
   return (
     <Form

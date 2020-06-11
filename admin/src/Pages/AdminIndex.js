@@ -2,7 +2,7 @@ import React from 'react';
 import { UserOutlined, BookOutlined } from '@ant-design/icons';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { Route } from 'react-router-dom';
-import Search from './Search';
+import SearchBook from './SearchBook';
 import Update from './Update';
 import Welcome from './Welcome';
 import UserInfo from './UserInfo';
@@ -98,7 +98,7 @@ function AdminIndex(props) {
             <div>
               <div>
                 <Route path='/index/' exact component={Welcome} />
-                <Route path='/index/search/' exact component={Search} />
+                <Route path='/index/search/' exact component={SearchBook} />
                 <Route path='/index/update' exact component={Update} />
                 <Route path='/index/addnovel' exact component={AddNovel} />
                 <Route path='/index/userList' exact component={UserInfo} />

@@ -35,23 +35,60 @@ class AdminController extends Controller {
     // 判断小说id 是否有重复插入
     console.log(id);
     const res = await this.app.mysql.get('novel', { id });
-    console.log(res);
-    console.log(res.affectedRows);
-    if (res.affectedRows === 1) {
-      this.ctx.body = {
-        status: 'failed',
-      };
-    } else {
-      const result = await this.app.mysql.insert('novel', novel);
-      if (result.affectedRows === 1) {
+    if (!res) {
+      // id 未重名 可以插入
+      console.log('id有效');
+      const res = await this.app.mysql.insert('novel', novel);
+      if (res.affectedRows === 1) {
         this.ctx.body = {
           status: 'success',
         };
+      } else {
+        this.ctx.body = {
+          status: 'failed',
+        };
       }
+    } else {
+      console.log('id 已被占用');
+      this.ctx.body = { status: 'used' };
     }
-
-    // this.ctx.body = { novel };
-    // console.log(result);
+  }
+  async getNovel() {
+    const novelList = await this.app.mysql.query('select * from novel');
+    // console.log(novelList);
+    this.ctx.body = {
+      novelList,
+    };
+  }
+  async getComment() {
+    const comment = await this.app.mysql.query('select * from comment');
+    // console.log(comment);
+    this.ctx.body = {
+      comment,
+    };
+  }
+  async getUserInfo() {
+    const userinfo = await this.app.mysql.query('select * from userinfo');
+    // console.log(comment);
+    this.ctx.body = {
+      userinfo,
+    };
+  }
+  async getNovelById() {
+    const { ctx } = this;
+    const id = ctx.params.id;
+    const res = await this.app.mysql.query(
+      `select * from novel where id like '%${id}%' `
+    );
+    if (res) {
+      ctx.body = {
+        res,
+      };
+    } else {
+      ctx.body = {
+        res: 'no data',
+      };
+    }
   }
 }
 

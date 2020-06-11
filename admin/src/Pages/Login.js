@@ -9,7 +9,7 @@ import 'antd/dist/antd.css';
 import { Card, Input, Button, Spin, message, Modal } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import '../static/css/Login.css';
-// import servicePath from '../config/apiUrl';
+import ServicePath from '../config/apiUrl';
 import axios from 'axios';
 
 function Login(props) {
@@ -38,9 +38,9 @@ function Login(props) {
     };
     axios({
       method: 'post',
-      url: 'http://127.0.0.1:7001/admin/checkLogin',
+      url: ServicePath.CheckLogin,
       data: dataProps,
-      withCredentials: false,
+      withCredentials: true,
     }).then(res => {
       setIsLoading(false);
       console.log(res);
@@ -55,9 +55,16 @@ function Login(props) {
       setIsLoading(false);
     }, 1000);
   };
-  const showModel = () =>{
-    setIsVisible(true)
-  }
+  const showModel = () => {
+    setIsVisible(true);
+    console.log(isVisible);
+  };
+  const handleOk = () => {
+    console.log('ok');
+  };
+  const handleCancel = () => {
+    console.log('calcle');
+  };
   return (
     <div className='login-div'>
       <Spin tip='Loading...' spinning={isLoading}>
@@ -95,10 +102,29 @@ function Login(props) {
             Register
           </Button>
           <Modal
-            title='Title'
             visible={isVisible}
+            title='Title'
+            onOk={handleOk}
+            onCancel={handleCancel}
+            footer={[
+              <Button key='back' onClick={handleCancel}>
+                Return
+              </Button>,
+              <Button
+                key='submit'
+                type='primary'
+                // loading={loading}
+                onClick={handleOk}
+              >
+                Submit
+              </Button>,
+            ]}
           >
-            <p>Hello</p>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
           </Modal>
           <Button
             type='primary'

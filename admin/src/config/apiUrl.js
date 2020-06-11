@@ -7,5 +7,10 @@
 const siteUrl = 'http://127.0.0.1:7001/admin/';
 let ServicePath = {
   AddNovel: siteUrl + 'addNovel',
+  CheckLogin: siteUrl + 'checkLogin',
+  GetNovelList: siteUrl + 'getNovel',
+  GetComment: siteUrl + 'getComment',
+  GetUserInfo: siteUrl + 'getUserInfo',
+  GetNovelById: siteUrl + 'getNovelById/',
 };
 export default ServicePath;
