@@ -1,2 +1,43 @@
 /admin/node_modules
-/service/node_modules
+# service
+/service/logs/
+/service/npm-debug.log
+/service/yarn-error.log
+/service/node_modules/
+/service/package-lock.json
+/service/yarn.lock
+/service/coverage/
+/service/.idea/
+/service/run/
+/service/.DS_Store
+/service/*.sw*
+/service/*.un~
+/service/typings/
+/service/.nyc_output/
+
+
+# client
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/client/node_modules
+/client/.pnp
+/client/.pnp.js
+# testing
+/client/coverage
+# next.js
+/client/.next/
+/client//out/
+# production
+/client/build
+# misc
+/client/.DS_Store
+# debug
+/client/npm-debug.log*
+/client/yarn-debug.log*
+/client/yarn-error.log*
+# local env files
+/client/.env.local
+/client/.env.development.local
+/client/.env.test.local
+/client/.env.production.local
