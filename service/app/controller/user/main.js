@@ -21,12 +21,12 @@ class UserController extends Controller {
     console.log(res);
     ctx.body = { res };
   }
-  // 获取本小说中评论信息
+  // 获取本小说中评论信息 并降序排列
   async getComments() {
     const id = this.ctx.params.id;
     console.log(id);
     const comments = await this.app.mysql.query(
-      `select * from comment join userinfo on userinfo.id = comment.userid and bookid =${id}`
+      `select * from comment join userinfo on userinfo.id = comment.userid and bookid =${id} order by date desc;`
     );
     console.log(comments);
     this.ctx.body = {

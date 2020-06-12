@@ -89,7 +89,7 @@ const Detail = info => {
   const handleSubmit = e => {
     let comment = {};
     comment.bookid = id;
-    comment.userid = '3';
+    comment.userid = '0';
     comment.content = content;
     console.log(comment);
     axios({
@@ -100,6 +100,7 @@ const Detail = info => {
     }).then(res => {
       if (res.data.status === 'success') {
         message.success('添加成功');
+        getComments();
       } else {
         message.error('添加失败');
       }
