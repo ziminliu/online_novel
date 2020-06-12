@@ -6,34 +6,37 @@ import axios from 'axios';
 
 import ServicePath from '../config/apiUrl';
 // 展示所有评论
+
+
 const CommentList = ({ id }) => {
   const [comments, setComments] = useState();
   // const [data, setData] = useState();
   useEffect(() => {
+    console.log(id)
     getComments();
   }, []);
   const getComments = () => {
     console.log(id)
-    // axios({
-    //   method: 'get',
-    //   url: ServicePath.GetComments + id,
-    //   withCredentials: true,
-    // }).then(res => {
-    //   console.log(res.data.comments);
-    //   setComments(res.data.comments);
-    //   // let data = [];
-    //   // res.data.comments.forEach(item => {
-    //   //   data.push({
-    //   //     author: item.name,
-    //   //     avatar:
-    //   //       'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-    //   //     content: <p>{item.content}</p>,
-    //   //     datetime: item.date,
-    //   //   });
-    //   // });
-    //   // console.log(data);
-    //   // setData(data);
-    // });
+    axios({
+      method: 'get',
+      url: ServicePath.GetComments + id,
+      withCredentials: true,
+    }).then(res => {
+      console.log(res.data.comments);
+      setComments(res.data.comments);
+      // let data = [];
+      // res.data.comments.forEach(item => {
+      //   data.push({
+      //     author: item.name,
+      //     avatar:
+      //       'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+      //     content: <p>{item.content}</p>,
+      //     datetime: item.date,
+      //   });
+      // });
+      // console.log(data);
+      // setData(data);
+    });
   };
   const data = [
     {

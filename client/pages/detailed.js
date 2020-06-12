@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Header from '../components/Header';
-import CommentList from '../components/CommentList';
+// import CommentList from '../components/CommentList';
 import axios from 'axios';
 import ServicePath from '../config/apiUrl';
+import { List } from 'antd';
 import { Row, Col } from 'antd';
 import { Card } from 'antd';
 import { Comment, Avatar, Form, Button, Input } from 'antd';
@@ -11,14 +12,55 @@ import { Comment, Avatar, Form, Button, Input } from 'antd';
 const { TextArea } = Input;
 const { Meta } = Card;
 
+// 留言组件
+const CommentList = ({ data }) => (
+  <Row>
+    <Col span={16} offset={4}>
+      <List
+        dataSource={data}
+        header={`${data.length} ${data.length > 1 ? '条评论' : '条评论'}`}
+        itemLayout='horizontal'
+        renderItem={props => <Comment {...props} />}
+      />
+    </Col>
+  </Row>
+);
+
 const Detail = info => {
   const [novel, setNovel] = useState({});
   const [id, setId] = useState();
+  const [comments, setComments] = useState([]);
   useEffect(() => {
     setNovel(info);
-    // console.log(info.id,'++++++')
     setId(info.id);
+    getComments();
   }, []);
+
+  // 获取评论
+  const getComments = () => {
+    console.log(info.id);
+    axios({
+      method: 'get',
+      url: ServicePath.GetComments + info.id,
+      withCredentials: true,
+    }).then(res => {
+      console.log(res.data.comments);
+      // setComments(res.data.comments);
+      let data = [];
+      res.data.comments.forEach(item => {
+        data.push({
+          author: item.name,
+          avatar:
+            'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+          content: <p>{item.content}</p>,
+          datetime: item.date,
+        });
+      });
+      console.log(data);
+      setComments(data);
+    });
+  };
+
   const Editor = ({ onChange, onSubmit, submitting, value }) => (
     <>
       <Form.Item>
@@ -106,7 +148,7 @@ const Detail = info => {
         </Col>
       </Row>
       {/* 评论区 */}
-      <CommentList id={id}></CommentList>
+      {comments.length > 0 && <CommentList data={comments} />}
     </div>
   );
 };
