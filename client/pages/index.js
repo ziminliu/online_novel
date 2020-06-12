@@ -2,7 +2,6 @@ import React from 'react';
 import Head from 'next/head';
 import Header from '../components/Header';
 import Novels from '../components/Novels';
-import { Row, Col } from 'antd';
 const Home = () => (
   <>
     <Head>

@@ -25,11 +25,30 @@ class UserController extends Controller {
   async getComments() {
     const id = this.ctx.params.id;
     console.log(id);
-    const comments = await this.app.mysql.query(`select * from comment join userinfo on userinfo.id = comment.userid and bookid =${id}`);
+    const comments = await this.app.mysql.query(
+      `select * from comment join userinfo on userinfo.id = comment.userid and bookid =${id}`
+    );
     console.log(comments);
     this.ctx.body = {
       comments,
     };
+  }
+
+  // 添加评论信息
+  async addComment() {
+    const { ctx } = this;
+    const comment = {};
+    comment.bookid = ctx.request.body.bookid;
+    comment.userid = ctx.request.body.userid;
+    comment.content = ctx.request.body.content;
+    console.log(comment);
+    const result = await this.app.mysql.insert('comment', comment);
+    if (result.affectedRows === 1) {
+      ctx.body = {
+        status: 'success',
+      };
+      console.log('插入成功');
+    }
   }
 }
 

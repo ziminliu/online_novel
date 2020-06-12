@@ -4,10 +4,11 @@ import Header from '../components/Header';
 // import CommentList from '../components/CommentList';
 import axios from 'axios';
 import ServicePath from '../config/apiUrl';
-import { List } from 'antd';
+import { List, message } from 'antd';
 import { Row, Col } from 'antd';
 import { Card } from 'antd';
 import { Comment, Avatar, Form, Button, Input } from 'antd';
+import Link from 'next/link';
 
 const { TextArea } = Input;
 const { Meta } = Card;
@@ -30,6 +31,7 @@ const Detail = info => {
   const [novel, setNovel] = useState({});
   const [id, setId] = useState();
   const [comments, setComments] = useState([]);
+  let content = '';
   useEffect(() => {
     setNovel(info);
     setId(info.id);
@@ -61,10 +63,10 @@ const Detail = info => {
     });
   };
 
-  const Editor = ({ onChange, onSubmit, submitting, value }) => (
+  const Editor = ({ onSubmit, submitting, value }) => (
     <>
       <Form.Item>
-        <TextArea rows={4} onChange={onChange} value={value} />
+        <TextArea rows={4} onChange={handleChange} />
       </Form.Item>
       <Form.Item>
         <Button
@@ -78,6 +80,31 @@ const Detail = info => {
       </Form.Item>
     </>
   );
+
+  const handleChange = e => {
+    content = e.target.value;
+  };
+
+  // 提交评论的方法
+  const handleSubmit = e => {
+    let comment = {};
+    comment.bookid = id;
+    comment.userid = '3';
+    comment.content = content;
+    console.log(comment);
+    axios({
+      method: 'post',
+      url: ServicePath.AddComment,
+      data: comment,
+      withCredentials: true,
+    }).then(res => {
+      if (res.data.status === 'success') {
+        message.success('添加成功');
+      } else {
+        message.error('添加失败');
+      }
+    });
+  };
   return (
     <div>
       <Head>
@@ -138,10 +165,9 @@ const Detail = info => {
             }
             content={
               <Editor
-              // onChange={this.handleChange}
-              // onSubmit={this.handleSubmit}
-              // submitting={submitting}
-              // value={value}
+                // onChange={handleChange}
+                onSubmit={handleSubmit}
+                submitting={false}
               />
             }
           />
@@ -149,6 +175,9 @@ const Detail = info => {
       </Row>
       {/* 评论区 */}
       {comments.length > 0 && <CommentList data={comments} />}
+      <Link href='/login'>
+        <a>this page!</a>
+      </Link>
     </div>
   );
 };

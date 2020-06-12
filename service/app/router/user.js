@@ -7,4 +7,6 @@ module.exports = app => {
   router.get('/getNovelDetails/:id', controller.user.main.getNovelDetails);
   // 获取评论信息
   router.get('/getComments/:id', controller.user.main.getComments);
+  // 添加评论信息
+  router.post('/addComment/', controller.user.main.addComment);
 };

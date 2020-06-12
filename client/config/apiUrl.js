@@ -10,6 +10,7 @@ let ServicePath = {
   GetNovelDetails: siteUrl + 'getNovelDetails/',
   // 获取某一篇小说内的评论
   GetComments: siteUrl + 'getComments/',
-  GetNovelById: siteUrl + 'getNovelById/',
+  // 添加评论信息
+  AddComment: siteUrl + 'addComment/',
 };
 export default ServicePath;
