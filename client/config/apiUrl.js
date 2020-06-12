@@ -8,8 +8,8 @@ let ServicePath = {
   
   // 获取某一篇小说的详情
   GetNovelDetails: siteUrl + 'getNovelDetails/',
-
-  GetUserInfo: siteUrl + 'getUserInfo',
+  // 获取某一篇小说内的评论
+  GetComments: siteUrl + 'getComments/',
   GetNovelById: siteUrl + 'getNovelById/',
 };
 export default ServicePath;

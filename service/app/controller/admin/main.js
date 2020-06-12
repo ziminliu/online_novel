@@ -60,6 +60,7 @@ class AdminController extends Controller {
       novelList,
     };
   }
+  // 获取评论信息
   async getComment() {
     const comment = await this.app.mysql.query('select * from comment');
     // console.log(comment);
