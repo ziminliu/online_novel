@@ -104,6 +104,7 @@ const Detail = info => {
           message.success('添加成功');
           getComments();
         } else {
+          console.log(res)
           message.error('添加失败');
         }
       });

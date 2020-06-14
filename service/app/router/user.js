@@ -2,6 +2,7 @@
 
 module.exports = app => {
   const { router, controller } = app;
+  const clientauth = app.middleware.clientAuth();
   router.get('/', controller.user.main.index);
   router.get('/getNovels', controller.user.main.getNovels);
   router.get('/getNovelDetails/:id', controller.user.main.getNovelDetails);
@@ -11,5 +12,4 @@ module.exports = app => {
   router.post('/addComment/', controller.user.main.addComment);
   // 验证登录
   router.post('/checkLogin/', controller.user.main.checkLogin);
-
 };
