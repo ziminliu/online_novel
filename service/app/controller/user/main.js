@@ -56,7 +56,7 @@ class UserController extends Controller {
     const id = ctx.request.body.id;
     const password = ctx.request.body.password;
     const result = await this.app.mysql.get('userinfo', { id, password });
-    console.log(result);
+    // console.log(result);
     if (result) {
       ctx.body = {
         data: 'success',
@@ -68,6 +68,32 @@ class UserController extends Controller {
       };
       console.log('登录失败');
     }
+  }
+
+  async addUser() {
+    const { ctx } = this;
+    const id = ctx.request.body.id;
+    const password = ctx.request.body.password;
+    const name = ctx.request.body.name;
+    try {
+      await this.app.mysql.insert('userinfo', {
+        id,
+        password,
+        name,
+      });
+    } catch (error) {
+      if (error) {
+        console.log('插入错误:' + error);
+        ctx.body = {
+          data: 'error',
+        };
+      }
+      return;
+    }
+    console.log('插入成功');
+    ctx.body = {
+      data: 'success',
+    };
   }
 }
 

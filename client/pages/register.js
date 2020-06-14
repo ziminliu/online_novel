@@ -1,43 +1,39 @@
 import Head from 'next/head';
 import Header from '../components/Header';
 import { Form, Input, Button, Checkbox, Col, Row, message } from 'antd';
-import { useHistory } from 'react-router-dom';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import '../public/style/pages/login.css';
 import { useState } from 'react';
 import axios from 'axios';
 import ServicePath from '../config/apiUrl';
-import Link from 'next/link';
 
-const Login = () => {
+const Register = () => {
   const [form] = Form.useForm();
   const [id, setId] = useState();
+  const [name, setName] = useState();
   const [password, setPassword] = useState();
   const onFinish = values => {
     // console.log('Received values of form: ', values);
   };
-  const handleLogin = () => {
-    // console.log('submit');
-    // console.log(id, password);
-    axios({
-      method: 'post',
-      url: ServicePath.CheckLogin,
-      data: { id, password },
-      withCredentials: true,
-    }).then(res => {
-      if (res.data.data === 'success') {
-        message.success('登录成功');
-        // 设置session
-        localStorage.setItem('userId', id);
-        console.log(localStorage.getItem('userId'));
-      } else {
-        message.error('账号或密码错误');
-      }
-    });
-  };
 
   const handleRegister = () => {
     console.log('注册用户');
+    axios({
+      method: 'post',
+      url: ServicePath.AddUser,
+      withCredentials: true,
+      data: {
+        id,
+        name,
+        password,
+      },
+    }).then(res => {
+      if (res.data.data === 'error') {
+        message.error('id 已被使用');
+      } else {
+        message.success('注册成功');
+      }
+    });
   };
 
   return (
@@ -54,6 +50,18 @@ const Login = () => {
             initialValues={{ remember: true }}
             onFinish={onFinish}
           >
+            <Form.Item
+              name='name'
+              rules={[{ required: true, message: 'Please input your name!' }]}
+            >
+              <Input
+                prefix={<UserOutlined className='site-form-item-icon' />}
+                placeholder='name'
+                onChange={e => {
+                  setName(e.target.value);
+                }}
+              />
+            </Form.Item>
             <Form.Item
               name='id'
               rules={[{ required: true, message: 'Please input your id!' }]}
@@ -82,28 +90,14 @@ const Login = () => {
               />
             </Form.Item>
             <Form.Item>
-              <Form.Item name='remember' valuePropName='checked' noStyle>
-                <Checkbox>Remember me</Checkbox>
-              </Form.Item>
-
-              <a className='login-form-forgot' href=''>
-                Forgot password
-              </a>
-            </Form.Item>
-
-            <Form.Item>
               <Button
                 type='primary'
                 htmlType='submit'
                 className='login-form-button'
-                onClick={handleLogin}
+                onClick={handleRegister}
               >
-                Log in
+                register now!
               </Button>
-              Or{' '}
-              <Link href='/register'>
-                <a>register now!</a>
-              </Link>
             </Form.Item>
           </Form>
         </Col>
@@ -112,4 +106,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

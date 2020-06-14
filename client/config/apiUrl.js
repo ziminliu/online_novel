@@ -12,5 +12,7 @@ let ServicePath = {
   AddComment: siteUrl + 'addComment/',
   // 验证登录
   CheckLogin: siteUrl + 'checkLogin',
+  // 注册用户
+  AddUser: siteUrl + 'addUser',
 };
 export default ServicePath;
