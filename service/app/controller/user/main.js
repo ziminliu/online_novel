@@ -41,13 +41,32 @@ class UserController extends Controller {
     comment.bookid = ctx.request.body.bookid;
     comment.userid = ctx.request.body.userid;
     comment.content = ctx.request.body.content;
-    console.log(comment);
+    // console.log(comment);
     const result = await this.app.mysql.insert('comment', comment);
     if (result.affectedRows === 1) {
       ctx.body = {
         status: 'success',
       };
       console.log('插入成功');
+    }
+  }
+  // 验证用户登录
+  async checkLogin() {
+    const { ctx } = this;
+    const id = ctx.request.body.id;
+    const password = ctx.request.body.password;
+    const result = await this.app.mysql.get('userinfo', { id, password });
+    console.log(result);
+    if (result) {
+      ctx.body = {
+        data: 'success',
+      };
+      console.log('验证登录');
+    } else {
+      ctx.body = {
+        data: 'failed',
+      };
+      console.log('登录失败');
     }
   }
 }

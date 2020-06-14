@@ -87,24 +87,29 @@ const Detail = info => {
 
   // 提交评论的方法
   const handleSubmit = e => {
-    let comment = {};
-    comment.bookid = id;
-    comment.userid = '0';
-    comment.content = content;
-    console.log(comment);
-    axios({
-      method: 'post',
-      url: ServicePath.AddComment,
-      data: comment,
-      withCredentials: true,
-    }).then(res => {
-      if (res.data.status === 'success') {
-        message.success('添加成功');
-        getComments();
-      } else {
-        message.error('添加失败');
-      }
-    });
+    if (localStorage.getItem('userId')) {
+      console.log(localStorage.getItem('userId'));
+      let comment = {};
+      comment.bookid = id;
+      comment.userid = localStorage.getItem('userId');
+      comment.content = content;
+      // console.log(comment);
+      axios({
+        method: 'post',
+        url: ServicePath.AddComment,
+        data: comment,
+        withCredentials: true,
+      }).then(res => {
+        if (res.data.status === 'success') {
+          message.success('添加成功');
+          getComments();
+        } else {
+          message.error('添加失败');
+        }
+      });
+    } else {
+      message.error('请先登录');
+    }
   };
   return (
     <div>
@@ -176,9 +181,6 @@ const Detail = info => {
       </Row>
       {/* 评论区 */}
       {comments.length > 0 && <CommentList data={comments} />}
-      <Link href='/login'>
-        <a>this page!</a>
-      </Link>
     </div>
   );
 };

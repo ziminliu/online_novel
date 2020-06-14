@@ -9,4 +9,7 @@ module.exports = app => {
   router.get('/getComments/:id', controller.user.main.getComments);
   // 添加评论信息
   router.post('/addComment/', controller.user.main.addComment);
+  // 验证登录
+  router.post('/checkLogin/', controller.user.main.checkLogin);
+
 };
