@@ -13,5 +13,7 @@ let ServicePath = {
   GetUserInfo: siteUrl + 'getUserInfo',
   GetNovelById: siteUrl + 'getNovelById/',
   UpdateNovel: siteUrl + 'updateNovel/',
+  UpdateUserinfo: siteUrl + 'updateUserinfo/',
+  DeleteUserinfo: siteUrl + 'deleteUserinfo/',
 };
 export default ServicePath;

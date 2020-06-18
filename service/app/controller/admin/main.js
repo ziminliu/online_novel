@@ -107,6 +107,39 @@ class AdminController extends Controller {
       };
     }
   }
+  // 修改用户信息
+  async updateUserinfo() {
+    console.log('修改用户信息');
+    const { ctx } = this;
+    const data = ctx.request.body;
+    // console.log(data);
+    const result = await this.app.mysql.update('userinfo', data);
+    if (result.affectedRows === 1) {
+      ctx.body = {
+        status: 'success',
+      };
+    } else {
+      ctx.body = {
+        status: 'failed',
+      };
+    }
+  }
+  // 删除用户信息
+  async deleteUserinfo() {
+    // console.log('删除用户信息');
+    const { ctx } = this;
+    const data = ctx.request.body;
+    const result = await this.app.mysql.delete('userinfo', { id: data.id });
+    if (result.affectedRows === 1) {
+      ctx.body = {
+        status: 'success',
+      };
+    } else {
+      ctx.body = {
+        status: 'failed',
+      };
+    }
+  }
 }
 
 module.exports = AdminController;
