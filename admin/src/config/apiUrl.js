@@ -17,5 +17,6 @@ let ServicePath = {
   DeleteUserinfo: siteUrl + 'deleteUserinfo/',
   UpdateComments: siteUrl + 'updateComments/',  //修改评论
   DeleteComments: siteUrl + 'deleteComments/',  //删除评论
+  RegisterAdmin: siteUrl + 'registerAdmin/',  //添加用户
 };
 export default ServicePath;

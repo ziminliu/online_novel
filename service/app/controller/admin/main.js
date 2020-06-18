@@ -173,6 +173,28 @@ class AdminController extends Controller {
       };
     }
   }
+  async registerAdmin() {
+    const { ctx } = this;
+    const data = ctx.request.body;
+    console.log(data);
+    try {
+      const result = await this.app.mysql.insert('admininfo', data);
+      if (result.affectedRows === 1) {
+        ctx.body = {
+          status: 'success',
+        };
+      } else {
+        ctx.body = {
+          status: 'failed',
+        };
+      }
+    } catch (error) {
+      console.log(error);
+      ctx.body = {
+        status: 'failed',
+      };
+    }
+  }
 }
 
 module.exports = AdminController;

@@ -27,4 +27,7 @@ module.exports = app => {
   router.post('/admin/updateComments', controller.admin.main.updateComments);
   // 删除评论信息
   router.delete('/admin/deleteComments', controller.admin.main.deleteComments);
+
+  // 管理员注册
+  router.post('/admin/registerAdmin', controller.admin.main.registerAdmin);
 };
