@@ -15,4 +15,6 @@ module.exports = app => {
   router.get('/admin/getUserInfo', controller.admin.main.getUserInfo);
   // 根据id查询小说
   router.get('/admin/getNovelById/:id', controller.admin.main.getNovelById);
+  // 修改小说内容
+  router.post('/admin/updateNovel', controller.admin.main.updateNovel);
 };

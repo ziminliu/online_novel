@@ -12,5 +12,6 @@ let ServicePath = {
   GetComment: siteUrl + 'getComment',
   GetUserInfo: siteUrl + 'getUserInfo',
   GetNovelById: siteUrl + 'getNovelById/',
+  UpdateNovel: siteUrl + 'updateNovel/',
 };
 export default ServicePath;

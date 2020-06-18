@@ -91,6 +91,22 @@ class AdminController extends Controller {
       };
     }
   }
+  // 更新小说信息
+  async updateNovel() {
+    const { ctx } = this;
+    const newdata = ctx.request.body;
+    const result = await this.app.mysql.update('novel', newdata);
+    // console.log(result);
+    if (result.affectedRows === 1) {
+      ctx.body = {
+        status: 'success',
+      };
+    } else {
+      ctx.body = {
+        status: 'failed',
+      };
+    }
+  }
 }
 
 module.exports = AdminController;
