@@ -15,5 +15,7 @@ let ServicePath = {
   UpdateNovel: siteUrl + 'updateNovel/',
   UpdateUserinfo: siteUrl + 'updateUserinfo/',
   DeleteUserinfo: siteUrl + 'deleteUserinfo/',
+  UpdateComments: siteUrl + 'updateComments/',  //修改评论
+  DeleteComments: siteUrl + 'deleteComments/',  //删除评论
 };
 export default ServicePath;

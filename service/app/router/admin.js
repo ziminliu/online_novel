@@ -17,8 +17,14 @@ module.exports = app => {
   router.get('/admin/getNovelById/:id', controller.admin.main.getNovelById);
   // 修改小说内容
   router.post('/admin/updateNovel', controller.admin.main.updateNovel);
+
   // 修改用户信息
   router.post('/admin/updateUserinfo', controller.admin.main.updateUserinfo);
   // 删除用户信息
   router.delete('/admin/deleteUserinfo', controller.admin.main.deleteUserinfo);
+
+  // 修改评论信息
+  router.post('/admin/updateComments', controller.admin.main.updateComments);
+  // 删除评论信息
+  router.delete('/admin/deleteComments', controller.admin.main.deleteComments);
 };

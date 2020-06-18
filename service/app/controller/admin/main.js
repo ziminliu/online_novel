@@ -140,6 +140,39 @@ class AdminController extends Controller {
       };
     }
   }
+
+  // 修改评论信息
+  async updateComments() {
+    const { ctx } = this;
+    const data = ctx.request.body;
+    console.log(data);
+    const result = await this.app.mysql.update('comment', data);
+    if (result.affectedRows === 1) {
+      ctx.body = {
+        status: 'success',
+      };
+    } else {
+      ctx.body = {
+        status: 'failed',
+      };
+    }
+  }
+
+  // 删除评论信息
+  async deleteComments() {
+    const { ctx } = this;
+    const data = ctx.request.body;
+    const result = await this.app.mysql.delete('comment', { id: data.id });
+    if (result.affectedRows === 1) {
+      ctx.body = {
+        status: 'success',
+      };
+    } else {
+      ctx.body = {
+        status: 'failed',
+      };
+    }
+  }
 }
 
 module.exports = AdminController;
