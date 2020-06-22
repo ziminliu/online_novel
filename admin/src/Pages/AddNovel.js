@@ -21,6 +21,7 @@ const validateMessages = {
 function AddNovel(props) {
   const [id, setId] = useState(0);
   const [name, setName] = useState('');
+  const [introduce, setIntroduce] = useState('');
   const [author, setAuthor] = useState(0);
   const [species, setSpecies] = useState('');
   const [status, setStatus] = useState('');
@@ -35,6 +36,7 @@ function AddNovel(props) {
     var novel = {
       id,
       name,
+      introduce,
       author,
       species,
       status,
@@ -96,6 +98,13 @@ function AddNovel(props) {
         <Input
           onBlur={e => {
             setName(e.currentTarget.value);
+          }}
+        />
+      </Form.Item>
+      <Form.Item name={['user', 'intruduce']} label='简介'>
+        <Input
+          onBlur={e => {
+            setIntroduce(e.currentTarget.value);
           }}
         />
       </Form.Item>

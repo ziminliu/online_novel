@@ -9,7 +9,7 @@ import { Row, Col } from 'antd';
 import { Card } from 'antd';
 import { Comment, Avatar, Form, Button, Input } from 'antd';
 import Link from 'next/link';
-
+import { LikeOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
 const { Meta } = Card;
 
@@ -30,6 +30,7 @@ const CommentList = ({ data }) => (
 const Detail = info => {
   const [novel, setNovel] = useState({});
   const [id, setId] = useState();
+  const [vote, setVote] = useState(info.votenum);
   const [comments, setComments] = useState([]);
   let content = '';
   useEffect(() => {
@@ -85,6 +86,41 @@ const Detail = info => {
     content = e.target.value;
   };
 
+  // 处理点赞  节流
+  const Throtten = (fn, delay) => {
+    var timer;
+    return function () {
+      if (timer) {
+        clearTimeout(timer);
+      }
+      timer = setTimeout(fn, delay);
+    };
+  };
+
+  const Modify = () => {
+    let data = Object.assign({}, info);
+    data.votenum = vote + 1;
+    console.log(info, data);
+    axios({
+      method: 'post',
+      url: ServicePath.AddLike,
+      data: data,
+      withCredentials: true,
+    }).then(res => {
+      if (res.data.data === 'success') {
+        message.success('点赞成功');
+      } else {
+        message.error('点赞失败');
+      }
+    });
+  };
+
+  const handleClick = async () => {
+    setVote(vote + 1);
+    Modify();
+  };
+
+  const modifyThrotten = Throtten(Modify, 1000);
   // 提交评论的方法
   const handleSubmit = e => {
     if (localStorage.getItem('userId')) {
@@ -104,7 +140,7 @@ const Detail = info => {
           message.success('添加成功');
           getComments();
         } else {
-          console.log(res)
+          console.log(res);
           message.error('添加失败');
         }
       });
@@ -149,7 +185,12 @@ const Detail = info => {
                       <p>状态：{novel.status}</p>
                       <p>章节：{novel.chapter}</p>
                       <p>页数：{novel.pagenum}</p>
-                      <p>点赞数：{novel.votenum}</p>
+                      <p>
+                        点赞数：{vote}{' '}
+                        <a onClick={handleClick}>
+                          <LikeOutlined />
+                        </a>{' '}
+                      </p>
                     </Card>
                   </Col>
                 </Row>

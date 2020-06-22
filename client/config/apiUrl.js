@@ -14,5 +14,7 @@ let ServicePath = {
   CheckLogin: siteUrl + 'checkLogin',
   // 注册用户
   AddUser: siteUrl + 'addUser',
+  // 用户点赞
+  AddLike: siteUrl + 'addLike',
 };
 export default ServicePath;

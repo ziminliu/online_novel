@@ -95,6 +95,23 @@ class UserController extends Controller {
       data: 'success',
     };
   }
+
+  async addLike() {
+    const { ctx } = this;
+    const data = ctx.request.body;
+    const result = await this.app.mysql.query(
+      `UPDATE novel SET votenum = ${data.votenum} WHERE id = ${data.id}`
+    );
+    if (result.affectedRows === 1) {
+      ctx.body = {
+        data: 'success',
+      };
+    } else {
+      ctx.body = {
+        data: 'failed',
+      };
+    }
+  }
 }
 
 module.exports = UserController;

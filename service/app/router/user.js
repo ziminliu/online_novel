@@ -14,4 +14,6 @@ module.exports = app => {
   router.post('/checkLogin/', controller.user.main.checkLogin);
   // 添加用户
   router.post('/addUser/', controller.user.main.addUser);
+  // 添加点赞
+  router.post('/addLike/', controller.user.main.addLike);
 };
